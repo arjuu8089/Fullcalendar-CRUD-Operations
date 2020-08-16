@@ -262,7 +262,22 @@ $("#save").click(function(e){
         $('#end_date').addClass('border-danger');
     }
     
-    
+    //date vaidation
+    dt1=moment(start_time).format("YYYY-MM-DD") 
+    dt2=moment(end_time).format("YYYY-MM-DD") 
+
+    // end - start returns difference in milliseconds 
+    var diff = new Date(Date.parse(dt2) - Date.parse(dt1));
+
+    // get days
+    var days = diff/(1000 * 60 * 60 * 24);
+
+    if(days>=1){
+        var msg='Please select a Single Day';
+        $('#start_date').addClass('border-danger');
+        $('#end_date').addClass('border-danger');
+        var err='2';
+    }
     
     //time functionality
     min = moment(start_time).format("HH:mm:ss")  
@@ -338,7 +353,7 @@ $(document).ready(function () {
                 $('#tl').text(event.title);
                 $('#nm').text(event.name);
                 $('#em').text(event.email_id);
-                var formDate = $.fullCalendar.formatDate(event.start, 'YYYY-MMMM -dddd hh:mm:ss');
+                var formDate = $.fullCalendar.formatDate(event.start, 'YYYY-MMMM-dddd hh:mm:ss');
                 $('#strt').text(formDate);
 
                 $("#del").click(function(){
